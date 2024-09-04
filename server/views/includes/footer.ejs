@@ -1,0 +1,50 @@
+<style>
+  .body {
+    margin: 0;
+    padding: 0;
+    bottom: 0;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .content {
+    flex: 1;
+    /* Additional styles for your main content go here */
+  }
+
+  .footer {
+    width: 100%;
+    background-color: #ede4e4;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 0.6rem;
+    position: fixed;
+    bottom: 0;
+  }
+  .footerMobile {
+    display: none;
+  }
+  @media screen and (max-width: 767px) {
+    /* Styles for screens with a maximum width of 767 pixels */
+    .footerDeskTop {
+      display: none;
+    }
+    .footerMobile {
+      display: none;
+    }
+  }
+</style>
+
+<div class="body">
+  <div class="content">
+    <!-- Your main content goes here -->
+  </div>
+
+  <footer class="footer footerDeskTop">
+    &#169; Copyright 2024 - Mohammed Abubakar and Team
+  </footer>
+  <footer class="footer footerMobile">
+    &#169; Copyright 2024 - Mohammed Abubakar
+  </footer>
+</div>

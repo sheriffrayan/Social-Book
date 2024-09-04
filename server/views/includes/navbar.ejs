@@ -1,0 +1,349 @@
+<style>
+  nav {
+    height: 3.3rem !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 5%;
+    background-color: #1876f2;
+  }
+  .nav-left {
+    width: 25rem;
+    display: flex;
+    align-items: center;
+  }
+  .nav-left .logo {
+    font-size: larger;
+  }
+  .nav-left i {
+    font-size: larger;
+  }
+  .logo {
+    justify-self: flex-end;
+    margin-right: 5rem;
+    color: white;
+  }
+  .nav-icons {
+    margin-right: 2rem;
+    color: white;
+  }
+  .nav-right {
+    display: flex;
+    align-items: center;
+  }
+  .searchBar {
+    border-radius: 1.5rem;
+    font-size: large;
+    padding: 0.1rem 0.6rem;
+    border: 1.3px solid black;
+  }
+
+  .input-container {
+    position: relative;
+  }
+
+  .input-container i {
+    position: absolute;
+    left: 10px; /* Adjust the left position as needed */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #555; /* Adjust the icon color as needed */
+    opacity: 0.6;
+  }
+  .input-container input {
+    padding-left: 33px; /* Adjust the padding to create space for the icon */
+  }
+  .profile-logo img {
+    width: 2.4rem;
+    border-radius: 100%;
+    margin-left: 2rem;
+    height: 90%;
+  }
+
+  @media (max-width: 686px) {
+    .nav-icons {
+      display: none;
+    }
+    .logo {
+      font-size: larger;
+      justify-self: flex-end;
+      margin-right: 0;
+      color: white;
+    }
+  }
+
+  .searchBar:hover {
+    box-shadow: 0 0 10px #ffffff;
+  }
+  .profile-logo img:hover {
+    cursor: pointer;
+    box-shadow: 0 0 10px #ffffff;
+  }
+
+  .nav-icons:hover {
+    cursor: pointer;
+    scale: 1.1 !important;
+  }
+  .logo:hover {
+    cursor: pointer;
+    scale: 1.01 !important;
+  }
+  #settingsMenu {
+    display: none;
+    position: absolute;
+    top: 108%;
+    right: 20px;
+    width: 25%;
+    height: fit-content;
+
+    background-color: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px rgb(166, 156, 156);
+  }
+  #settingsMenu h6 {
+    width: fit-content;
+  }
+  .innerSettings {
+    padding: 0.7rem 0.5rem 0 0.5rem;
+  }
+  .signup {
+    border-radius: 3rem;
+    margin-left: 1.5rem;
+    background-color: #ffffff;
+    color: blue;
+    border: 2px solid blue;
+    box-shadow: 0 0 10px rgb(255, 255, 255);
+  }
+  .settingUserInfo:hover {
+    background-color: #efeaea;
+    border-radius: 1rem;
+  }
+
+  .settingUserInfo {
+    width: 100%;
+    display: flex;
+    font-size: small;
+    align-items: center;
+    padding: 0.4rem 0.7rem;
+  }
+
+  .settingUserInfo img {
+    width: 7.5%;
+    height: 100%;
+    border-radius: 50%;
+    margin-right: 0.6rem;
+    position: relative;
+    bottom: 0.2rem;
+  }
+  .settingUserInfo img:hover {
+    cursor: pointer;
+  }
+  .settingUserInfo .info {
+    width: 90%;
+  }
+
+  .settingUserInfo .h6 {
+    font-size: medium;
+    position: relative;
+    top: 0.5rem;
+  }
+  .settingUserInfo i {
+    position: relative;
+    font-size: medium;
+    top: 0.8rem;
+    margin-left: 28.5rem;
+  }
+
+  .newInfo h6 {
+    margin-bottom: 1px;
+  }
+  .newInfo h6:hover {
+    cursor: pointer;
+  }
+
+  .newInfo p {
+    opacity: 0.7;
+    margin-bottom: 0;
+    font-size: small;
+  }
+
+  @media screen and (max-width: 767px) {
+    /* Styles for screens with a maximum width of 767 pixels */
+    #settingsMenu {
+      display: none;
+      position: absolute;
+      top: 108%;
+      right: 1rem;
+      width: 70%;
+      height: fit-content;
+
+      background-color: #ffffff;
+      border-radius: 1rem;
+      box-shadow: 0 0 10px rgb(166, 156, 156);
+    }
+    /*  .settingUserInfo i {
+      display: none;
+    } */
+    .settingUserInfo {
+      align-items: center;
+    }
+    .settingUserInfo img {
+      position: relative;
+      top: 1px;
+    }
+    .settingUserInfo .h6 {
+      top: 0.3rem;
+    }
+    .input-container {
+      display: none;
+    }
+  }
+</style>
+<nav class="sticky-top">
+  <div class="nav-left">
+    <a href="/"
+      ><div class="logo"><i class="fa-solid fa-globe"></i> SocialBook</div></a
+    >
+    <div><i class="fa-solid fa-bell nav-icons"></i></div>
+    <div><i class="fa-solid fa-envelope nav-icons"></i></div>
+    <div><i class="fa-solid fa-video nav-icons"></i></div>
+  </div>
+
+  <div class="nav-right">
+    <div class="input-container">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" class="searchBar form-control" placeholder="Search" />
+    </div>
+
+    <% if(currUser ){%>
+    <div
+      class="profile-logo"
+      onmouseover="openSetting()"
+      onclick="openSetting()"
+    >
+      <img src="<%= currUser.image.url %>" />
+    </div>
+    <% } else{%>
+    <button
+      class="btn btn-success signup"
+      onmouseover="openLoginForm()"
+      onclick="openLoginForm()"
+    >
+      LogIn/SignUp
+    </button>
+    <% } %>
+
+    <div id="settingsMenu">
+      <div class="innerSettings">
+        <% if(currUser){ %>
+        <div class="settingUserInfo">
+          <img style="width: 13%" src="<%= currUser.image.url %>" alt="" />
+          <div class="info">
+            <h6 style="font-size: medium"><%= currUser.username %></h6>
+            <a href="">See Your Profile</a>
+          </div>
+          <div onclick="closeSetting()" style="margin-left: auto">
+            <i
+              style="margin-left: auto; font-size: x-large; margin-bottom: 20px"
+              class="fa-solid fa-xmark"
+            ></i>
+          </div>
+        </div>
+        <% } %>
+        <center><hr style="width: 90%; margin: 0.8rem 0 0.8rem 0" /></center>
+        <div class="settingUserInfo">
+          <img
+            style="width: 13%"
+            src="https://cdn-icons-png.flaticon.com/512/4658/4658943.png"
+            alt=""
+          />
+          <div class="info">
+            <h6 style="font-size: medium">Give FeedBack</h6>
+            <a href="">Help us to improve the new design</a>
+          </div>
+        </div>
+        <center><hr style="width: 90%; margin: 0.8rem 0 0.8rem 0" /></center>
+        <div class="settingUserInfo">
+          <img
+            style="width: 13%"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Settings_%28iOS%29.png/800px-Settings_%28iOS%29.png"
+            alt=""
+          />
+          <div class="info h6">
+            <h6>Settings & Privacy</h6>
+            <i
+              class="fa-solid fa-angle-right"
+              style="left: 15rem; bottom: 0.7rem"
+            ></i>
+          </div>
+        </div>
+        <div class="settingUserInfo">
+          <img
+            style="width: 13%"
+            src="https://previews.123rf.com/images/sarahdesign/sarahdesign1410/sarahdesign141000993/32210603-help-icon.jpg"
+            alt=""
+          />
+          <div class="info h6">
+            <h6>Help & Support</h6>
+            <i
+              class="fa-solid fa-angle-right"
+              style="left: 15rem; bottom: 0.7rem"
+            ></i>
+          </div>
+        </div>
+        <div class="settingUserInfo">
+          <img
+            style="width: 13%; border-radius: 0"
+            src="https://cdn-icons-png.flaticon.com/512/4854/4854302.png"
+            alt=""
+          />
+          <div class="info h6">
+            <h6>Display & Accessibility</h6>
+            <i
+              class="fa-solid fa-angle-right"
+              style="left: 15rem; bottom: 0.7rem"
+            ></i>
+          </div>
+        </div>
+        <a style="text-decoration: none; color: black" href="/logout">
+          <div class="settingUserInfo mb-2">
+            <img
+              style="width: 13%"
+              src="https://icons.iconarchive.com/icons/custom-icon-design/pretty-office-11/512/logout-icon.png"
+              alt=""
+            />
+            <div class="info h6">
+              <h6>Logout</h6>
+              <i
+                class="fa-solid fa-angle-right"
+                style="left: 15rem; bottom: 0.7rem"
+              ></i>
+            </div></div
+        ></a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  function openLoginForm() {
+    document.getElementById("loginOverlay").style.display = "flex";
+  }
+
+  function openSetting() {
+    let setting = document.getElementById("settingsMenu");
+    setting.style.display = "block"; // Initially hide the settings menu
+
+    setting.addEventListener("mouseenter", function () {
+      setting.style.display = "block"; // Display the settings menu when mouse enters
+    });
+
+    setting.addEventListener("mouseleave", function () {
+      setting.style.display = "none"; // Hide the settings menu when mouse leaves
+    });
+  }
+
+  function closeSetting() {
+    document.getElementById("settingsMenu").style.display = "none";
+  }
+</script>

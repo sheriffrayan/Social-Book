@@ -1,0 +1,537 @@
+<% layout("/layouts/boilerplate") %>
+<style>
+  .outerChat {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .chatOuterBoundry {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50rem; /* 25rem */
+    height: 37.6rem; /* 33rem */
+    border: 1px solid black;
+    border-radius: 1rem;
+    background-color: azure;
+  }
+
+  .chatUser {
+    width: 100%;
+    display: flex;
+    font-size: small;
+    padding: 0.4rem 0.7rem;
+    height: 5rem;
+  }
+  .homeBtn {
+    margin-left: auto;
+  }
+  .btn-warning:hover {
+    border: 2px solid #1876f2;
+  }
+
+  .chatUser img {
+    width: 8%;
+    height: 4rem;
+    border-radius: 50%;
+    margin-right: 0.6rem;
+    position: relative;
+    bottom: 0.2rem;
+  }
+  .chatUser img:hover {
+    cursor: pointer;
+  }
+  .chatUser i {
+    position: relative;
+    font-size: medium;
+    top: 0.8rem;
+    margin-left: 28.5rem;
+  }
+
+  .newInfo h6 {
+    margin-bottom: 1px;
+  }
+  .newInfo h6:hover {
+    cursor: pointer;
+  }
+
+  .newInfo p {
+    opacity: 0.7;
+    margin-bottom: 0;
+    font-size: small;
+  }
+  .chatUser {
+    justify-self: flex-start;
+    align-items: center;
+    background-color: aqua;
+    border-radius: 1rem 1rem 0 0;
+    color: rgb(0, 0, 0);
+    border-bottom: 1px solid black;
+    margin-bottom: 0.5rem;
+  }
+  .typeMsg {
+    width: 100%;
+    height: fit-content;
+    background-color: aqua;
+    align-items: center;
+    border-radius: 1rem;
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    padding: 0.3rem;
+    border-top: 1px solid black;
+  }
+
+  .typeMsg input {
+    display: inline;
+    border-radius: 1rem;
+    width: 46.8rem; /* 22rem */
+    margin-right: 0.2rem;
+  }
+  .sendBtn:hover {
+    scale: 1.1;
+  }
+  .sendMsg,
+  .recMsg {
+    height: fit-content;
+    min-width: 40%;
+    max-width: 45%;
+    background-color: rgb(0, 255, 255);
+    border-radius: 1rem;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    margin-bottom: 0.5rem;
+  }
+
+  .recMsg {
+    align-self: flex-start;
+  }
+  .sendMsg {
+    align-self: flex-end;
+  }
+  .recInnerMsg {
+    margin-left: 0;
+    width: 100%;
+    max-height: 5rem;
+    overflow-y: scroll;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 1rem;
+    padding: 0.5rem;
+  }
+  .sendInnerMsg {
+    width: 100%;
+    max-height: 5rem;
+    overflow-y: scroll;
+    background-color: antiquewhite;
+    border: 1px solid black;
+    border-radius: 1rem;
+    padding: 0.5rem;
+  }
+  .messages {
+    height: 100%;
+    overflow-y: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .AllUsers {
+    width: 35%;
+    height: 37.6rem;
+    background-color: white;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    border: 1px solid black;
+    border-radius: 1rem;
+  }
+  .userHeader {
+    width: 100%;
+    height: 4rem;
+    border-bottom: 1px solid black;
+    border-radius: 1rem 1rem 0 0;
+    background-color: aqua;
+    display: flex;
+    align-items: center;
+    position: sticky; /* Make the header sticky */
+    top: 0; /* Stick to the top of the viewport */
+    z-index: 1; /* Ensure it stays above other elements */
+  }
+
+  .userInfo {
+    width: 100%;
+    height: 4rem;
+    display: flex;
+    font-size: small;
+    padding: 0.4rem 0.7rem;
+    background-color: white;
+    border-bottom: 1px solid black;
+  }
+
+  .userInfo:hover {
+    background-color: rgb(205, 255, 255);
+    cursor: pointer;
+  }
+  /*  .userInfo img {
+    width: 8%;
+    height: 100%;
+    border-radius: 50%;
+    margin-right: 0.6rem;
+    position: relative;
+    bottom: 0.2rem;
+  } */
+
+  .userInfo i {
+    position: relative;
+    left: 25rem;
+    align-self: center;
+    font-size: medium;
+  }
+
+  .info h6 {
+    margin-bottom: 1px;
+  }
+
+  .info p {
+    opacity: 0.7;
+    margin-bottom: 0;
+  }
+  .userInfo {
+    align-items: center;
+  }
+  .allchatUsers {
+    overflow-y: auto;
+    height: calc(100% - 5rem); /* Adjust the height to fill remaining space */
+  }
+
+  /* Default styles for large screens */
+  .date-format-small {
+    display: none;
+  }
+
+  /* Media query for small screens (up to 412px) */
+  @media only screen and (max-width: 412px) {
+    .date-format-large {
+      display: none;
+    }
+
+    .date-format-small {
+      display: block;
+      /* Add your small screen styles here if needed */
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    /* Styles for screens with a maximum width of 767 pixels */
+    .chatOuterBoundry {
+      display: none;
+    }
+    .AllUsers {
+      width: 100%; /* 
+      height: 86.3vh; */
+      height: 100%;
+      margin-top: 0.8rem;
+      margin-left: 0;
+      margin-right: 0;
+      border: 0;
+    }
+    .userInfo img {
+      width: 55px;
+      height: 55px;
+    }
+    .backToHome {
+      display: none;
+    }
+    .userHeader {
+      border-radius: 0;
+      height: 3rem;
+    }
+  }
+  .profile-container {
+    position: relative;
+    display: inline-block;
+  }
+  .user-profile-image {
+    width: 50px; /* Adjust the size as needed */
+    height: 50px; /* Adjust the size as needed */
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ffffff; /* Border color for the image */
+    margin-right: 0.6rem;
+  }
+
+  .online-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    background-color: #2ecc71; /* Green color for online indicator */
+    border-radius: 50%;
+    border: 2px solid #fff; /* Border color for the indicator */
+  }
+  .offline-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    background-color: #cecdcd; /* Green color for online indicator */
+    border-radius: 50%;
+    border: 2px solid #fff; /* Border color for the indicator */
+  }
+</style>
+<body>
+  <div class="outerChat" style="height: 100%">
+    <div class="AllUsers">
+      <div class="userHeader">
+        <h4 style="margin-left: 1rem">All Chats</h4>
+      </div>
+
+      <div class="allchatUsers">
+        <% for (user of allUsers) { %>
+        <a
+          href="/chatWindow/<%= user._id %>"
+          style="text-decoration: none; color: black"
+        >
+          <div class="userInfo">
+            <div class="profile-container">
+              <img
+                class="user-profile-image"
+                src="<%= user.image.url %>"
+                alt="User Profile"
+              />
+              <% if(user.is_online) { %>
+              <div
+                class="online-indicator"
+                id="<%= user._id %>-usersArray"
+              ></div>
+              <% }else{ %>
+              <div
+                class="offline-indicator"
+                id="<%= user._id %>-usersArray"
+              ></div>
+              <% } %>
+            </div>
+            <div class="info">
+              <h6>
+                <%= user.username %><%= currUser && user._id.toString() ===
+                currUser._id.toString() ? " (You)" : "" %>
+              </h6>
+              <!-- time -->
+
+              <% if(user.latestMsg){ %>
+              <p>
+                Last Msg: <%= luxon.DateTime.fromJSDate(new
+                Date(user.latestMsg), { zone: 'Asia/Kolkata' })
+                .toLocaleString({ weekday: 'short', month: 'short', day:
+                'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric',
+                second: 'numeric', hour12: true }) %>
+              </p>
+              <% } else { %>
+              <p>Last Msg: No messages</p>
+              <% }%>
+            </div>
+          </div>
+        </a>
+        <% } %>
+      </div>
+    </div>
+    <div class="chatOuterBoundry">
+      <% if(chatUser){ %>
+      <div class="chatUser">
+        <!-- userimage -->
+        <img src="<%= chatUser.image.url %>" alt="" />
+        <div class="newInfo">
+          <h6><%= chatUser.username %></h6>
+          <p>Public</p>
+        </div>
+        <div class="homeBtn">
+          <a style="text-decoration: none; color: black" href="/"
+            ><button class="btn btn-warning backToHome">Back To Home</button></a
+          >
+          <a style="text-decoration: none; color: black" href="/chatWindow"
+            ><button class="btn btn-warning back2AllUser">Back</button></a
+          >
+        </div>
+      </div>
+
+      <% if(sendMsgs && recMsgs) {%> <% if(currUser && chatUser._id.toString()
+      === currUser._id.toString()) {%>
+      <div class="messages">
+        <!-- mesges -->
+        <% const AllMsgs = [ ...(sendMsgs || []).map(msg=>({ type: 'sendMsg',
+        msg: msg.msg, createdAt: msg.createdAt })) ]; const sortedMsgs =
+        AllMsgs.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+        sortedMsgs.forEach(msg => { if( msg.type === 'recMsg' || msg.type ===
+        'sendMsg') { %>
+        <div class="<%= msg.type %>">
+          <div
+            class="<%= msg.type === 'recMsg' ? 'recInnerMsg' : 'recInnerMsg' %>"
+          >
+            <p><%= msg.msg %></p>
+          </div>
+          <p
+            id="dateLarge"
+            class="date-format-large"
+            style="font-size: smaller; margin-left: 0.5rem; margin-bottom: 0"
+          >
+            <%= luxon.DateTime.fromJSDate(new Date(msg.createdAt), { zone:
+            'Asia/Kolkata' }).toLocaleString({ weekday: 'short', month: 'short',
+            day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric',
+            second: 'numeric', hour12: true }) %>
+          </p>
+          <p
+            id="dateSmall"
+            class="date-format-small"
+            style="font-size: smaller; margin-left: 0.5rem; margin-bottom: 0"
+          >
+            <%= luxon.DateTime.fromJSDate(new Date(msg.createdAt), { zone:
+            'Asia/Kolkata' }).toLocaleString({ day: 'numeric', month: 'numeric',
+            year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true })
+            %>
+          </p>
+        </div>
+        <% } }); %>
+
+        <div id="defaultSection"></div>
+      </div>
+      <% } else{ %>
+      <div class="messages">
+        <!-- mesges -->
+        <% const AllMsgs = [ ...(recMsgs || []).map(msg => ({ type: 'recMsg',
+        msg: msg.msg, createdAt: msg.createdAt })), ...(sendMsgs ||
+        []).map(msg=>({ type: 'sendMsg', msg: msg.msg, createdAt: msg.createdAt
+        })) ]; const sortedMsgs = AllMsgs.sort((a, b) => new Date(a.createdAt) -
+        new Date(b.createdAt)); sortedMsgs.forEach(msg => { if( msg.type ===
+        'recMsg' || msg.type === 'sendMsg') { %>
+        <div class="<%= msg.type %>">
+          <div
+            class="<%= msg.type === 'recMsg' ? 'recInnerMsg' : 'sendInnerMsg' %>"
+          >
+            <p><%= msg.msg %></p>
+          </div>
+          <p
+            id="dateLarge"
+            class="date-format-large"
+            style="font-size: smaller; margin-left: 0.5rem; margin-bottom: 0"
+          >
+            <%= luxon.DateTime.fromJSDate(new Date(msg.createdAt), { zone:
+            'Asia/Kolkata' }).toLocaleString({ weekday: 'short', month: 'short',
+            day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric',
+            second: 'numeric', hour12: true }) %>
+          </p>
+          <p
+            id="dateSmall"
+            class="date-format-small"
+            style="font-size: smaller; margin-left: 0.5rem; margin-bottom: 0"
+          >
+            <%= luxon.DateTime.fromJSDate(new Date(msg.createdAt), { zone:
+            'Asia/Kolkata' }).toLocaleString({ day: 'numeric', month: 'numeric',
+            year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true })
+            %>
+          </p>
+        </div>
+        <% } }); %>
+
+        <div id="defaultSection"></div>
+      </div>
+      <%}%> <% } %> <% }else{ %>
+      <div class="chatUser">
+        <!-- userimage -->
+        <div class="newInfo">
+          <h6>Select a Chat</h6>
+        </div>
+        <div class="homeBtn">
+          <a style="text-decoration: none; color: black" href="/"
+            ><button class="btn btn-warning">Back To Home</button></a
+          >
+        </div>
+      </div>
+      <% }%>
+
+      <div class="typeMsg">
+        <%if(chatUser){ %>
+        <form
+          id="msgSendForm"
+          method="post"
+          action="/saveMsg/<%=chatUser._id %>"
+        >
+          <input
+            class="form-control msgInp"
+            type="text"
+            name="msg"
+            placeholder="Enter Message"
+            id="sentMsg"
+            required
+          />
+          <button
+            type="submit"
+            style="text-decoration: none; background-color: aqua; border: none"
+          >
+            <i
+              style="font-size: x-large"
+              class="sendBtn fa-regular fa-paper-plane"
+            ></i>
+          </button>
+        </form>
+        <% } else {%>
+        <form method="post">
+          <input
+            class="form-control msgInp"
+            type="text"
+            name="msg"
+            placeholder="Select a chat"
+          />
+        </form>
+        <%}%>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let msgSendForm = document.getElementById("msgSendForm");
+
+    const socket = io("/user_namespace", {
+      auth: {
+        token: "<%= currUser._id %>",
+      },
+    });
+
+    socket.on("userOnline", (data) => {
+      document
+        .getElementById(`${data.user_id}-usersArray`)
+        .classList.remove("offline-indicator");
+      document
+        .getElementById(`${data.user_id}-usersArray`)
+        .classList.add("online-indicator");
+    });
+    socket.on("userOffline", (data) => {
+      document
+        .getElementById(`${data.user_id}-usersArray`)
+        .classList.add("offline-indicator");
+      document
+        .getElementById(`${data.user_id}-usersArray`)
+        .classList.remove("online-indicator");
+    });
+  </script>
+</body>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Get the element by its ID
+    var defaultSection = document.getElementById("defaultSection");
+
+    // Scroll to the element if it exists
+    if (defaultSection) {
+      defaultSection.scrollIntoView();
+    }
+
+    /*  var loadPage = setInterval(function () {
+      location.reload();
+    }, 10000); */
+  });
+</script>

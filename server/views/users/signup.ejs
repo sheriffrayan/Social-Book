@@ -1,0 +1,137 @@
+<% layout("/layouts/boilerplate") -%>
+<body>
+  <div class="row mt-4">
+    <div class="col-10 col-lg-6 col-md-6 offset-lg-2 offset-1">
+      <h3 class="mb-3">Welcome User SignUp on 🌐SocialBook Here</h3>
+      <form
+        onsubmit=" return validateForm()"
+        id="signUPForm"
+        method="post"
+        action="/signup"
+        novalidate
+        class="needs-validation"
+        enctype="multipart/form-data"
+      >
+        <div class="mb-3">
+          <!-- //username -->
+          <label for="username" class="form-label">UserName</label>
+          <input
+            type="text"
+            class="form-control"
+            name="username"
+            placeholder="Enter Your Username"
+            required
+          />
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">UserName required</div>
+        </div>
+
+        <!-- user photo -->
+        <div class="mb-3">
+          <label for="image" class="form-label">Upload Your Image</label>
+          <input
+            type="file"
+            class="form-control"
+            name="userImage"
+            accept="image/*"
+            required
+          />
+          <div class="valid-feedback" id="imgLooksGood">Looks good!</div>
+          <div class="invalid-feedback" id="imageNot">
+            Please Select Image File!
+          </div>
+          <div class="invalid-feedback">Profile Photo required</div>
+        </div>
+
+        <!-- //email -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            name="email"
+            placeholder="Enter Your Email"
+            required
+          />
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Email required</div>
+        </div>
+
+        <!-- //password -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            id="origPass"
+            type="password"
+            class="form-control"
+            name="password"
+            placeholder="Enter Your Password"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Confirm Password</label>
+          <input
+            id="cnfPass"
+            type="password"
+            class="form-control"
+            placeholder="Enter Your Password"
+            required
+          />
+          <div class="invalid-feedback" id="passCheck" style="display: none">
+            Your Confirm Password Hasn't Matched 🙁
+          </div>
+          <div class="valid-feedback" id="passCheckPass" style="display: none">
+            Your Confirm Password Has Matched 😀
+          </div>
+        </div>
+
+        <button class="btn btn-success mb-3">SignUp</button>
+      </form>
+    </div>
+  </div>
+</body>
+<script>
+  let origPass = document.getElementById("origPass");
+  let cnfPass = document.getElementById("cnfPass");
+  let form = document.getElementById("signUPForm");
+  let passCheck = document.getElementById("passCheck");
+  let passCheckPass = document.getElementById("passCheckPass");
+
+  cnfPass.addEventListener("input", function () {
+    // Get the values of the password fields
+    let origPassValue = origPass.value;
+    let cnfPassValue = cnfPass.value;
+
+    if (origPassValue && cnfPassValue) {
+      if (origPassValue === cnfPassValue) {
+        passCheckPass.style.display = "block";
+        passCheck.style.display = "none";
+      } else {
+        passCheck.style.display = "block";
+        passCheckPass.style.display = "none";
+      }
+    } else {
+      passCheck.style.display = "none";
+      passCheckPass.style.display = "none";
+    }
+  });
+
+  form.addEventListener("submit", function (event) {
+    // Prevent form submission if passwords don't match
+    if (passCheck.style.display === "block") {
+      event.preventDefault();
+    }
+  });
+
+  function validateForm() {
+    var fileInput = document.querySelector('input[name="userImage"]');
+    var file = fileInput.files[0];
+    if (!file || !file.type.startsWith("image/")) {
+      document.getElementById("imageNot").style.display = "block";
+      document.getElementById("imgLooksGood").style.display = "none";
+      return false;
+    }
+    return true; // Proceed with form submission
+  }
+</script>

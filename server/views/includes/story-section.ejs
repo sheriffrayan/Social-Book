@@ -1,0 +1,115 @@
+<style>
+  .story-section {
+    height: 25%;
+    background-color: white;
+    border-radius: 1rem;
+    padding: 0.4rem 0.4rem 0.4rem 0.4rem;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 0.5rem;
+    overflow-x: auto;
+  }
+
+  .post,
+  .CreatePost {
+    min-width: 100px;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    border-radius: 1rem;
+    margin-right: 0.6rem;
+    background-image: linear-gradient(transparent, rgb(0, 0, 0, 0.5)),
+      url("https://image.winudf.com/v2/image/Y29tLmRlaGF0aW11c2ljMS5BQUFfc2NyZWVuXzBfMTUzOTg3NzgxMV8wMDA/screen-0.webp?fakeurl=1&type=.webp");
+  }
+
+  .post p {
+    color: rgb(255, 255, 255);
+    font-weight: 400;
+    position: relative;
+    top: 4rem;
+    font-size: smaller;
+    text-align: center;
+  }
+
+  .CreatePost p {
+    width: fit-content;
+    position: relative;
+    left: 1rem;
+    top: 4.8rem;
+    color: rgb(255, 255, 255);
+    font-weight: 450;
+    font-size: smaller;
+  }
+
+  .CreatePost i {
+    position: relative;
+    left: 2rem;
+    top: 4.8rem;
+    font-size: xx-large;
+    color: rgb(255, 251, 251);
+  }
+
+  .post .status-logo {
+    width: 2.4rem;
+    height: min-content;
+    border-radius: 100%;
+    position: relative;
+    left: 0.9rem;
+    top: 0.5rem;
+    border: 3px solid #1876f2;
+    z-index: 1;
+  }
+
+  .fa-solid:hover {
+    scale: 1.1;
+    cursor: pointer;
+  }
+  .post .status-logo:hover {
+    scale: 1.1;
+    cursor: pointer;
+  }
+  .post:hover {
+    cursor: pointer;
+  }
+  .CreatePost:hover {
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 767px) {
+    /* Styles for screens with a maximum width of 767 pixels */
+    .CreatePost p {
+      position: relative;
+      left: 1rem;
+      top: 6rem;
+    }
+
+    .CreatePost i {
+      position: relative;
+      left: 2rem;
+      top: 6rem;
+    }
+    .post p {
+      position: relative;
+      top: 5rem;
+    }
+  }
+</style>
+<div class="CreatePost">
+  <a href="/newStory"><i class="fa-solid fa-circle-plus"></i></a>
+  <p>Post Story</p>
+</div>
+<% for(story of allStories) {%>
+<div
+  class="post"
+  style="
+    background-image: linear-gradient(transparent, rgb(0, 0, 0, 0.5)),
+      url(<%=story.image.url %>);
+  "
+>
+  <img class="status-logo" src="<%= story.owner.image.url %>" alt="" />
+  <p><%= story.owner.username %></p>
+</div>
+
+<% } %>
+
+<!-- { image: { url: 'https://res.cloudinary.com/dqusuosoq/image/upload/v1701109733/SocialBook/qqshrjwnpavbinnkbetm.png', filename: 'SocialBook/qqshrjwnpavbinnkbetm' }, _id: new ObjectId('6564dfe78813cb038421e27c'), owner: { image: { url: 'https://res.cloudinary.com/dqusuosoq/image/upload/v1701021459/SocialBook/atyajkhw8x1zhrhmbgxi.jpg', filename: 'SocialBook/atyajkhw8x1zhrhmbgxi' }, _id: new ObjectId('65638714cafe8fbc752ca3cc'), email: 'mohdabuzar.11786@gmail.com', username: 'Abuzar', __v: 0 }, __v: 0 } -->

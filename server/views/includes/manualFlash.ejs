@@ -1,0 +1,77 @@
+<!-- Flash Message CSS -->
+<style>
+  .flash-message {
+    position: fixed;
+    top: 3.3rem; /* Adjust the top position based on your navbar height */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
+    text-align: center;
+    z-index: 1000;
+    display: none;
+    transition: opacity 1s linear;
+    min-width: 30%;
+    max-width: 60%; /* Adjust the width as needed */
+    border-radius: 1rem; /* Border radius of 1rem */
+    color: rgb(0, 0, 0);
+  }
+
+  .remaining-time-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 5px; /* Height of the countdown bar */
+    width: 100%;
+  }
+
+  .alert-success {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+  }
+
+  .alert-danger {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+  }
+
+  .remaining-time-bar.success {
+    background-color: #155724; /* Green color for success timeline */
+  }
+
+  .remaining-time-bar.error {
+    background-color: #721c24; /* Red color for error timeline */
+  }
+
+  @keyframes countdown {
+    0% {
+      width: 100%;
+    }
+    100% {
+      width: 0;
+    }
+  }
+</style>
+
+<!-- Flash Message HTML -->
+<div id="manualflashSuccess" class="flash-message alert alert-success">
+  <div
+    class="remaining-time-bar success"
+    style="animation: countdown 3s linear forwards"
+  ></div>
+</div>
+<div id="manualflashError" class="flash-message alert alert-danger">
+  <div
+    class="remaining-time-bar error"
+    style="animation: countdown 3s linear forwards"
+  ></div>
+</div>
+
+<!-- Flash Message JavaScript -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var successMessage = document.getElementById("manualflashSuccess");
+    var errorMessage = document.getElementById("manualflashError");
+    successMessage.style.display = "none";
+    errorMessage.style.display = "none";
+  });
+</script>

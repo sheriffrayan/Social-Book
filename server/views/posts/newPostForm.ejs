@@ -1,0 +1,129 @@
+<% layout("/layouts/boilerplate") -%>
+<body>
+  <div class="row mt-3">
+    <div class="col-10 col-lg-6 col-md-6 offset-lg-2 offset-1">
+      <h3>Enter Here Some Extra Details to Create New Post</h3>
+      <form
+        onsubmit="return validateFile()"
+        method="post"
+        action="/newPostAllDetails"
+        novalidate
+        class="needs-validation"
+        enctype="multipart/form-data"
+      >
+        <select
+          id="imgOrVedioSelect"
+          class="form-select mb-3 mt-3"
+          aria-label="Default select example"
+        >
+          <option selected>Select Image Or Vedio</option>
+          <option value="image">Image</option>
+          <option value="vedio">Video</option>
+        </select>
+
+        <div style="display: none" class="mb-3" id="imageSelected">
+          <label for="image" class="form-label">Upload Post Image</label>
+          <input
+            type="file"
+            class="form-control"
+            name="post_image"
+            accept="image/*"
+          />
+          <div class="valid-feedback" id="imgLooksGood">Looks good!</div>
+          <div class="invalid-feedback">Post Image is required</div>
+          <div style="display: none" class="invalid-feedback" id="imageNot">
+            Please select an image file.
+          </div>
+        </div>
+        <div style="display: none" class="mb-3" id="vedioSelected">
+          <label for="vedio" class="form-label">Upload Post Vedio</label>
+          <input
+            type="file"
+            class="form-control"
+            name="post_vedio"
+            id="videoFile"
+            accept="video/*"
+          />
+          <div class="valid-feedback" id="vidLooksGood">Looks good!</div>
+          <div class="invalid-feedback">Post Vedio is required</div>
+          <div class="invalid-feedback" style="display: none" id="vedioSize">
+            File size too large. Maximum allowed size is 10 MB.
+          </div>
+          <div style="display: none" class="invalid-feedback" id="videoNot">
+            Please select an Video file.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="postDescription" class="form-label"
+            >Post Description</label
+          >
+          <textarea
+            type="text"
+            class="form-control"
+            name="post_description"
+            placeholder="Add Post Description here"
+            required
+          >
+<%= description %></textarea
+          >
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Post Description required</div>
+        </div>
+
+        <button class="btn btn-success add-btn mt-3">Create Post</button>
+        <br /><br />
+      </form>
+    </div>
+  </div>
+</body>
+<script>
+  let imgOrVedioSelect = document.getElementById("imgOrVedioSelect");
+  imgOrVedioSelect.addEventListener("change", function () {
+    var selected = this.value;
+    if (selected === "image") {
+      document.getElementById("vedioSelected").style.display = "none";
+      document.getElementById("imageSelected").style.display = "block";
+    } else if (selected === "vedio") {
+      document.getElementById("imageSelected").style.display = "none";
+      document.getElementById("vedioSelected").style.display = "block";
+    }
+  });
+
+  function validateFile() {
+    var fileInput = document.getElementById("videoFile");
+    if (fileInput.files.length > 0) {
+      var fileSize = fileInput.files[0].size; // File size in bytes
+      var maxSize = 10485760; // Maximum allowed size in bytes (10 MB)
+      if (fileSize > maxSize) {
+        /* 
+        alert("File size too large. Maximum allowed size is 10 MB."); */
+        document.getElementById("vedioSize").style.display = "block";
+        document.getElementById("vidLooksGood").style.display = "none";
+        return false; // Prevent form submission
+      }
+    }
+
+    var selectedOption = document.getElementById("imgOrVedioSelect").value;
+    if (selectedOption === "image") {
+      var fileInput = document.querySelector('input[name="post_image"]');
+      var file = fileInput.files[0];
+      if (!file || !file.type.startsWith("image/")) {
+        document.getElementById("imageNot").style.display = "block";
+        document.getElementById("imgLooksGood").style.display = "none";
+        return false;
+      }
+    } else if (selectedOption === "vedio") {
+      var fileInput = document.querySelector('input[name="post_vedio"]');
+      var file = fileInput.files[0];
+      if (!file || !file.type.startsWith("video/")) {
+        document.getElementById("videoNot").style.display = "block";
+        document.getElementById("vidLooksGood").style.display = "none";
+        return false;
+      }
+    } else {
+      alert("Please select Image or Video.");
+      return false;
+    }
+    return true; // Proceed with form submission
+  }
+</script>

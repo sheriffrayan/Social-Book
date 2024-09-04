@@ -1,0 +1,92 @@
+<% layout("/layouts/homeBoilerplate") -%>
+<style>
+  .homePage {
+    display: flex;
+    padding: 0 1rem 0.5rem 1rem;
+    justify-content: center;
+    align-items: center;
+  }
+  .left-section,
+  .middle-section,
+  .right-section {
+    height: 90.3vh;
+  }
+  .left-section {
+    flex-basis: 25%;
+    background-color: white;
+    border-radius: 1rem;
+    margin-right: 0.5rem;
+    top: 70px;
+  }
+  .left-section-top {
+    height: fit-content;
+  }
+  .middle-section {
+    width: 47%;
+    border-bottom: 0px;
+    overflow-y: auto;
+  }
+
+  .new-post {
+    height: 25%;
+  }
+  .right-section {
+    flex-basis: 25%;
+    background-color: white;
+    border-radius: 1rem;
+    top: 70px;
+    margin-left: 0.5rem;
+  }
+  .right-section-top {
+    height: 50%;
+  }
+  hr {
+    margin: 0;
+    width: 80%;
+  }
+  .indexBody {
+    background-color: #dfdfdf;
+  }
+  @media screen and (max-width: 767px) {
+    /* Styles for screens with a maximum width of 767 pixels */
+    .left-section,
+    .right-section {
+      display: none;
+    }
+    .middle-section {
+      width: 100%;
+      border-bottom: 0px;
+      overflow-y: auto;
+    }
+    .homePage {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+  }
+</style>
+<body class="indexBody">
+  <div class="homePage">
+    <div class="left-section">
+      <div class="left-section-top">
+        <%- include("includes/left-section-top.ejs") %>
+      </div>
+      <center><hr /></center>
+      <div class="left-section-bottom">
+        <%- include("includes/left-section-bottom.ejs") %>
+      </div>
+    </div>
+    <div class="middle-section">
+      <div class="story-section">
+        <%- include("includes/story-section.ejs") %>
+      </div>
+      <div class="new-post mt-2"><%- include("includes/new-post.ejs") %></div>
+      <div class="view-post mt-2"><%- include("includes/view-post.ejs") %></div>
+    </div>
+    <div class="right-section">
+      <div class="right-section-top">
+        <%-include("includes/right-section-top.ejs") %>
+      </div>
+    </div>
+  </div>
+  <%- include("users/login.ejs") %>
+</body>
